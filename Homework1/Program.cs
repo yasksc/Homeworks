@@ -12,7 +12,6 @@ namespace Homework1
         {
             Console.WriteLine("Hello world!");
             Console.WriteLine("future-branch-1 - development 1");
-            Console.WriteLine("feature-branch-1 - development 2");
         }
     }
 }
