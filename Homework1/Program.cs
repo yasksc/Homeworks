@@ -11,7 +11,6 @@ namespace Homework1
         static void Main(string[] args)
         {
             Console.WriteLine("Hello world!");
-            Console.WriteLine("future-branch-1 - development 1");
         }
     }
 }
