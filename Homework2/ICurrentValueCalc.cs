@@ -9,7 +9,7 @@
         double CurrentValue { get; set; }
         double ProfitLoss { get; set; }
 
-        void CurrentValueCalculation();
+        void CalculateCurrentValue();
 
     }
 }
