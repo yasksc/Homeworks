@@ -2,11 +2,6 @@
 
 namespace Homework2
 {
-    enum TransactionType
-    {
-        Buy = 1,
-        Sell = -1
-    }
     public class CurrentValueCalc : ICurrentValueCalc
     {
         private int _nominal;
@@ -15,15 +10,21 @@ namespace Homework2
 
         public int Nominal
         {
-            get { return _nominal;}
-            set {
-                if (value > 0)
+            get { return _nominal; }
+            set
+            {
+                try
                 {
-                    _nominal = value;
+                    if (value > 0)
+                    {
+                        _nominal = value;
+                    }
+                    else
+                        throw new Exception("Number of shares must be bigger than 0");
                 }
-                else
+                catch (Exception e)
                 {
-                    Console.WriteLine("Nominal must be bigger than 0");   
+                    Console.WriteLine(e.Message);
                 }
             }
         }
@@ -33,14 +34,20 @@ namespace Homework2
             get { return _priceTrade; }
             set
             {
-                if (value > 0)
+                try
                 {
-                    _priceTrade = value;
+                    if (value > 0)
+                    {
+                        _priceTrade = value;
+                    }
+                    else
+                        throw new Exception("Trade price must be bigger than 0");
                 }
-                else
+                catch (Exception e)
                 {
-                    Console.WriteLine("Price must be bigger than 0");
+                    Console.WriteLine(e.Message);
                 }
+
             }
         }
 
@@ -49,34 +56,40 @@ namespace Homework2
             get { return _priceOrigin; }
             set
             {
-                if (value > 0)
+                try
                 {
-                    _priceOrigin = value;
+                    if (value > 0)
+                    {
+                        _priceOrigin = value;
+                    }
+                    else
+                        throw new Exception("Original price must be bigger than 0");
                 }
-                else
+                catch (Exception e)
                 {
-                    Console.WriteLine("Price must be bigger than 0");
+                    Console.WriteLine(e.Message);
                 }
             }
         }
 
-        public string TransType { get; set; }
+        public string TransactionTypeUser { get; set; }
         public double CurrentValue { get; set; }
         public double ProfitLoss { get; set; }
 
-        public CurrentValueCalc(int nominal, double priceOrigin, double priceTrade, string transType)
+
+        public CurrentValueCalc(int nominal, double priceOrigin, double priceTrade, string transactionTypeUser)
         {
             Nominal = nominal;
             PriceOrigin = priceOrigin;
             PriceTrade = priceTrade;
-            TransType = transType;
+            TransactionTypeUser = transactionTypeUser;
         }
         public void CurrentValueCalculation()
         {
             TransactionType trcType;
-            trcType = (TransactionType)Enum.Parse(typeof(TransactionType), TransType, true);
+            trcType = (TransactionType)Enum.Parse(typeof(TransactionType), TransactionTypeUser, true);
             CurrentValue = (int)trcType * Nominal * PriceOrigin;
-            ProfitLoss = ((int) trcType < 0) ? (PriceTrade - PriceOrigin) * Nominal : 0.0;
+            ProfitLoss = ((int)trcType < 0) ? (PriceTrade - PriceOrigin) * Nominal : 0.0;
             Console.WriteLine($"Current value: {CurrentValue}\n" +
                               $"Profit/Loss: {ProfitLoss}");
         }
